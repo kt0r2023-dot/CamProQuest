@@ -12,12 +12,12 @@
   "dependencies": [
     {
       "id": "beatsaber-hook",
-      "versionRange": "^5.0.0",
+      "versionRange": "^3.14.0",
       "additionalData": {}
     },
     {
       "id": "questui",
-      "versionRange": "^0.16.0",
+      "versionRange": "^0.16.7",
       "additionalData": {}
     }
   ],
