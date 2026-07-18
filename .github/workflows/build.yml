@@ -1,4 +1,4 @@
-name: Build on Ubuntu Manually
+name: Build on Ubuntu
 
 on:
   push:
@@ -14,11 +14,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install QPM Rust Manually
-      run: |
-        wget https://github.com/fernthedev/qpm-rust/releases/latest/download/qpm-rust-linux
-        chmod +x qpm-rust-linux
-        sudo mv qpm-rust-linux /usr/local/bin/qpm
+    - name: Set up QPM
+      uses: Fernthedev/qpm-action@v1
+      with:
+        workflow_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Restore dependencies
       run: qpm restore
