@@ -1,25 +1,25 @@
 {
-  "sharedDir": "shared",
-  "dependenciesDir": "extern",
+  "shared_dir": "shared",
+  "dependencies_dir": "extern",
   "info": {
     "name": "CamPro",
     "id": "campro",
     "version": "1.0.0",
     "url": "",
     "author": "thateasy",
-    "additionalData": {}
+    "additional_data": {}
   },
   "dependencies": [
     {
       "id": "beatsaber-hook",
-      "version": "^5.0.0",
-      "additionalData": {}
+      "versionRange": "^5.0.0",
+      "additional_data": {}
     },
     {
       "id": "questui",
-      "version": "^0.16.0",
-      "additionalData": {}
+      "versionRange": "^0.16.0",
+      "additional_data": {}
     }
   ],
-  "additionalData": {}
+  "additional_data": {}
 }
