@@ -1,21 +1,25 @@
 {
-  "name": "CamPro",
-  "id": "campro",
-  "version": "1.0.0",
-  "description": "Раздельный FOV для меню и игры, тонкая настройка сглаживания (MSAA) для экономии ресурсов.",
-  "author": "thateasy",
-  "license": "MIT",
-  "compatibility": {
-    "gameVersion": "1.40.8",
-    "beatsaber-hook": "^5.0.0",
-    "questui": "^0.16.0"
+  "shared_dir": "shared",
+  "dependencies_dir": "extern",
+  "info": {
+    "name": "CamPro",
+    "id": "campro",
+    "version": "1.0.0",
+    "url": "",
+    "author": "thateasy",
+    "additional_data": {}
   },
-  "dependencies": {
-    "beatsaber-hook": "^5.0.0",
-    "questui": "^0.16.0"
-  },
-  "build": {
-    "type": "cmake",
-    "libraryName": "campro"
-  }
+  "dependencies": [
+    {
+      "id": "beatsaber-hook",
+      "version": "^5.0.0",
+      "additional_data": {}
+    },
+    {
+      "id": "questui",
+      "version": "^0.16.0",
+      "additional_data": {}
+    }
+  ],
+  "additional_data": {}
 }
