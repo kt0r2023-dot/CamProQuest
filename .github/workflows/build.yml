@@ -23,7 +23,9 @@ jobs:
       run: qpm restore
 
     - name: Build module
-      run: qpm build
+      run: |
+        cmake -B build -DCMAKE_BUILD_TYPE=Release
+        cmake --build build --config Release
 
     - name: Package QMod
       run: qpm qmod package
