@@ -18,9 +18,18 @@ jobs:
           workflow_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Restore dependencies
         run: qpm restore
+      - name: Locate QPM CMake config
+        id: locate_qpm
+        run: |
+          path=$(find /home/runner/.local/share /opt/hostedtoolcache -type f \( -name 'qpmConfig.cmake' -o -name 'qpm-config.cmake' \) | head -n1)
+          if [ -z "$path" ]; then
+            echo "Error: qpmConfig.cmake not found"
+            exit 1
+          fi
+          echo "qpm_dir=$(dirname \"$(dirname \"$path\")\")" >> $GITHUB_OUTPUT
       - name: Build
         run: |
-          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$QPM_DIR
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=${{ steps.locate_qpm.outputs.qpm_dir }}
           cmake --build build --config Release
       - name: Package QMod
         run: qpm qmod package
