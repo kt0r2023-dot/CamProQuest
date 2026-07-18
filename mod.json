@@ -1,0 +1,16 @@
+{
+  "id": "campro",
+  "name": "CamPro",
+  "author": "thateasy",
+  "version": "1.0.0",
+  "description": "Раздельный FOV для меню и игры, тонкая настройка сглаживания (MSAA) для экономии ресурсов.",
+  "gameVersion": "1.40.8",
+  "packageId": "com.beatgames.beatsaber",
+  "dependsOn": {
+    "beatsaber-hook": "^5.0.0",
+    "questui": "^0.16.0"
+  },
+  "modFiles": [
+    "libcampro.so"
+  ]
+}

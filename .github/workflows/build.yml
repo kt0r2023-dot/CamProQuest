@@ -1,0 +1,43 @@
+name: Build CamPro QMod
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build on ARM64 Android
+    runs-on: ubuntu-latest
+    container:
+      image: docker://sc2ad/quest-builder:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: |
+          mkdir -p build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=android-26 ..
+
+      - name: Build library
+        run: |
+          cd build
+          cmake --build . --config Release
+
+      - name: Package QMod
+        run: |
+          mkdir -p release
+          cp build/libcampro.so release/
+          zip -j release/campro.qmod release/libcampro.so ../mod.json
+
+      - name: Upload built artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: campro-qmod
+          path: release/campro.qmod

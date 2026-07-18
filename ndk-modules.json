@@ -1,0 +1,14 @@
+{
+  "id": "campro",
+  "version": "1.0.0",
+  "dependencies": [
+    {
+      "id": "beatsaber-hook",
+      "version": "^5.0.0"
+    },
+    {
+      "id": "questui",
+      "version": "^0.16.0"
+    }
+  ]
+}

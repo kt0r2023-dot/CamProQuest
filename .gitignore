@@ -1,0 +1,7 @@
+build/
+release/
+*.qmod
+*.so
+*.user
+.vscode/
+.DS_Store
