@@ -1,42 +1,36 @@
-name: Build CamPro QMod
+name: Build on Ubuntu Manually
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
-    name: Build on Ubuntu
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up QPM
-        uses: Fernthedev/qpm-action@main
-        with:
-          workflow_token: ${{ secrets.GITHUB_TOKEN }}
-          restore: true
-          cache: true
+    - name: Install QPM Rust Manually
+      run: |
+        wget https://github.com/fernthedev/qpm-rust/releases/latest/download/qpm-rust-linux
+        chmod +x qpm-rust-linux
+        sudo mv qpm-rust-linux /usr/local/bin/qpm
 
-      - name: Build module
-        run: qpm build --release
+    - name: Restore dependencies
+      run: qpm restore
 
-      - name: Package QMod
-        run: |
-          mkdir -p release
-          if [ -f libcampro.so ]; then cp libcampro.so release/; fi
-          if [ -f campro.so ]; then cp campro.so release/; fi
-          cd release
-          zip -j campro.qmod *.so ../mod.json
+    - name: Build module
+      run: qpm build
 
-      - name: Upload built artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: campro-qmod
-          path: release/campro.qmod
+    - name: Package QMod
+      run: qpm qmod package
+
+    - name: Upload QMod Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: CamPro-QMod
+        path: ./*.qmod
