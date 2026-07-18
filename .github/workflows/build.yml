@@ -20,7 +20,7 @@ jobs:
       - name: Set up QPM
         uses: Fernthedev/qpm-rust-action@main
         with:
-          qpm-version: latest
+          workflow_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Restore dependencies
         run: qpm restore
