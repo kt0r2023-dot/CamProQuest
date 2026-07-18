@@ -20,7 +20,7 @@ jobs:
         run: qpm restore
       - name: Build
         run: |
-          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$QPM_DIR
           cmake --build build --config Release
       - name: Package QMod
         run: qpm qmod package
