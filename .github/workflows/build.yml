@@ -1,5 +1,4 @@
-name: Build on Ubuntu
-
+name: Build and Package
 on:
   push:
     branches: [ main ]
@@ -9,29 +8,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set up QPM
-      uses: Fernthedev/qpm-action@v1
-      with:
-        workflow_token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Restore dependencies
-      run: qpm restore
-
-    - name: Build module
-      run: |
-        cmake -B build -DCMAKE_BUILD_TYPE=Release
-        cmake --build build --config Release
-
-    - name: Package QMod
-      run: qpm qmod package
-
-    - name: Upload QMod Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: CamPro-QMod
-        path: ./*.qmod
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Set up QPM
+        uses: Fernthedev/qpm-action@v1
+        with:
+          workflow_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Restore dependencies
+        run: qpm restore
+      - name: Build
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
+      - name: Package QMod
+        run: qpm qmod package
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CamPro-QMod
+          path: ./*.qmod
