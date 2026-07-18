@@ -17,10 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install QPM
-        uses: sc2ad/action-qpm@v1
+      - name: Set up QPM
+        uses: Fernthedev/qpm-rust-action@main
         with:
-          args: --version
+          qpm-version: latest
 
       - name: Restore dependencies
         run: qpm restore
@@ -31,9 +31,10 @@ jobs:
       - name: Package QMod
         run: |
           mkdir -p release
-          cp libcampro.so release/ || true
-          cp campro.so release/ || true
-          zip -j release/campro.qmod release/*.so mod.json
+          if [ -f libcampro.so ]; then cp libcampro.so release/; fi
+          if [ -f campro.so ]; then cp campro.so release/; fi
+          cd release
+          zip -j campro.qmod *.so ../mod.json
 
       - name: Upload built artifact
         uses: actions/upload-artifact@v4
