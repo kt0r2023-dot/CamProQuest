@@ -17,10 +17,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up QPM
-        uses: Fernthedev/qpm-rust-action@main
+      - name: Set up Rust toolchain
+        uses: actions-rs/toolchain@v1
         with:
-          workflow_token: ${{ secrets.GITHUB_TOKEN }}
+          toolchain: stable
+          override: true
+
+      - name: Install QPM
+        run: |
+          cargo install qpm-rust --locked
+          echo "QPM installed: $(which qpm)"
 
       - name: Restore dependencies
         run: qpm restore
